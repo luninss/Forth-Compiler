@@ -58,7 +58,7 @@ def p_Expressao_soma(p):
     """
     # Directly use the numbers on the stack for addition
     if p[3] == '+':
-        p[0] = p[1] + p[2] + 'ADDd\n'
+        p[0] = p[1] + p[2] + 'ADD\n'
     elif p[3] == '-':
         p[0] = p[1] + p[2] + 'SUB\n'
     elif p[3] == '*':
@@ -118,6 +118,7 @@ codigo = parser.parse(fonte)
 
 if parser.exito:
     print("Parsing terminou com sucesso")
+    print("codigo gerado: \n")
     print(codigo)  # escrever este codigo para um ficheiro em vez de imprimir
 
 def debug_lexer(fonte):
