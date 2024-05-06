@@ -54,19 +54,19 @@ def p_Expressao_Print(p):
 
 def p_Expressao_soma(p):
     """
-    Expressao : Expressao Expressao SINAL 
+    Expressao : Expressao SINAL 
     """
     # Directly use the numbers on the stack for addition
-    if p[3] == '+':
-        p[0] = p[1] + p[2] + 'ADD\n'
-    elif p[3] == '-':
-        p[0] = p[1] + p[2] + 'SUB\n'
-    elif p[3] == '*':
-        p[0] = p[1] + p[2] + 'MUL\n'
-    elif p[3] == '/':
-        p[0] = p[1] + p[2] + 'DIV\n'
-    elif p[3] == '%':
-        p[0] = p[1] + p[2] + 'MOD\n'
+    if p[2] == '+':
+        p[0] = p[1] + 'ADD\n'
+    elif p[2] == '-':
+        p[0] = p[1] + 'SUB\n'
+    elif p[2] == '*':
+        p[0] = p[1] + 'MUL\n'
+    elif p[2] == '/':
+        p[0] = p[1] + 'DIV\n'
+    elif p[2] == '%':
+        p[0] = p[1] +  'MOD\n'
     return p
 
 
