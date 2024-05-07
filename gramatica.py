@@ -31,7 +31,7 @@ def p_Prog2(p):
     p[0] = p[1]
     return p
 
-def p_Frase(p):
+def p_Frase1(p):
     """
     Frase : Expressao PRINT
     """
@@ -40,6 +40,20 @@ def p_Frase(p):
 
 def p_Frase2(p):
     """
+    Frase : Expressao EMIT
+    """
+    p[0] = p[1] + 'writechr\n'
+    return p
+
+def p_Frase3(p):
+    """
+    Frase : Expressao CHAR
+    """
+    p[0] = p[1] + 'writechr\n'
+    return p
+
+def p_Frase4(p):
+    """
     Frase : Expressao
     """
     p[0] = p[1]
@@ -47,9 +61,16 @@ def p_Frase2(p):
 
 def p_Expressao_Print(p):
     """
-    Expressao : Expressao '.'
+    Expressao : '.' STRING
     """
-    p[0] = p[1] + 'writei\n'
+    p[0] = 'pushs ' + p[2] + '\nwrites\n'
+    return p
+
+def p_Expressao_Print3(p):
+    """
+    Expressao : '.'
+    """
+    p[0] = 'writei\n'
     return p
 
 def p_Expressao_soma(p):
