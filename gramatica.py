@@ -40,6 +40,8 @@ def p_Def(p):
     Def : ':' ID ARGUMENTOS Prog ';'
         | ':' ID Prog ';'
     """
+    print('entrei')
+    print(p[3])
     if len(p) == 6:
         parser.tab_func[p[2]] = p[4]
     else :
@@ -155,7 +157,7 @@ def p_Frase13(p):
 def p_Expressao_Cond(p):
     """
     Expressao : IF Frase THEN
-              | IF Expressao ELSE Expressao THEN
+              | IF Frase ELSE Frase THEN
     """
     if len(p) == 4:
         p[0] = 'jz continue' + str(parser.next_if) + '\n' 
@@ -193,24 +195,24 @@ def p_Expressao_Print2(p):
 
 def p_Expressao_sinal(p):
     """
-    Expressao : Expressao SINAL 
+    Expressao : SINAL 
     """
-    if p[2] == '+':
-        p[0] = p[1] + 'ADD\n'
-    elif p[2] == '-':
-        p[0] = p[1] + 'SUB\n'
-    elif p[2] == '*':
-        p[0] = p[1] + 'MUL\n'
-    elif p[2] == '/':
-        p[0] = p[1] + 'DIV\n'
-    elif p[2] == 'MOD':
-        p[0] = p[1] + 'MOD\n'
-    elif p[2] == '<':
-        p[0] = p[1] + 'INFEQ\n'
-    elif p[2] == '>':
-        p[0] = p[1] + 'SUP\n'
-    elif p[2] == '=':
-        p[0] = p[1] + 'EQUAL\n'
+    if p[1] == '+':
+        p[0] = 'ADD\n'
+    elif p[1] == '-':
+        p[0] = 'SUB\n'
+    elif p[1] == '*':
+        p[0] =  'MUL\n'
+    elif p[1] == '/':
+        p[0] =  'DIV\n'
+    elif p[1] == 'MOD':
+        p[0] =  'MOD\n'
+    elif p[1] == '<':
+        p[0] =  'INFEQ\n'
+    elif p[1] == '>':
+        p[0] =  'SUP\n'
+    elif p[1] == '=':
+        p[0] =  'EQUAL\n'
     return p
 
 
@@ -319,7 +321,7 @@ def erro(p):
     print('Erro: ')
     print(p)
     print('-----/-----')
-    sys.exit()
+    sys.exit(1)
 
 parser = yacc.yacc()
 parser.exito = True
