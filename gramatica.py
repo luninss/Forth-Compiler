@@ -41,13 +41,15 @@ def p_Def(p):
         | ':' ID Prog ';'
     """
     print('entrei')
-    print(p[3])
+    print(p[1])
     if len(p) == 6:
         parser.tab_func[p[2]] = p[4]
     else :
         parser.tab_func[p[2]] = p[3] 
     p[0] = ''
     return p
+
+
 
 def p_Frase(p):
     """
@@ -154,10 +156,17 @@ def p_Frase13(p):
     p[0] = 'pushsp\nload-1\npushsp\nload-1\n'
     return p
 
+def p_Frase14(p):
+    """
+    Frase : KEY
+    """
+    p[0] = 'read\natoi\n'
+    return p
+
 def p_Expressao_Cond(p):
     """
-    Expressao : IF Frase THEN
-              | IF Frase ELSE Frase THEN
+    Expressao : IF Prog THEN
+              | IF Prog ELSE Prog THEN
     """
     if len(p) == 4:
         p[0] = 'jz continue' + str(parser.next_if) + '\n' 
@@ -190,7 +199,7 @@ def p_Expressao_Print2(p):
     """
     Expressao : '.'
     """
-    p[0] = 'writei\n'
+    p[0] = 'writei\npushs \" \"\nwrites\n'
     return p
 
 def p_Expressao_sinal(p):
@@ -205,7 +214,7 @@ def p_Expressao_sinal(p):
         p[0] =  'MUL\n'
     elif p[1] == '/':
         p[0] =  'DIV\n'
-    elif p[1] == 'MOD':
+    elif p[1] == '%':
         p[0] =  'MOD\n'
     elif p[1] == '<':
         p[0] =  'INFEQ\n'
@@ -304,7 +313,7 @@ def p_Palavra(p):
         p[0] = parser.tab_func[p[1]]
     else:
         p[0] = ''
-        erro("Funcao nao declarada")
+        # erro("Funcao nao declarada")
     return p
 
 
@@ -340,14 +349,12 @@ codigo = parser.parse(fonte)
 
 
 if parser.exito:
-    print("Parsing terminou com sucesso")
-    print("codigo gerado: \n")
+    print("\nParsing terminou com sucesso")
+    print("codigo gerado:\n")
     print(codigo)  # escrever este codigo para um ficheiro em vez de imprimir
-    print (parser.tab_func)
 
 def debug_lexer(fonte):
     lex.input(fonte)
-
     while tok := lex.token():
        print(tok)
 

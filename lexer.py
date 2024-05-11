@@ -26,6 +26,7 @@ tokens = (
     'IF',
     'ELSE',
     'THEN',
+    'KEY',
     # 'DO',
 )
 
@@ -33,40 +34,44 @@ tokens = (
 #     r'DO'
 #     return t
 
+def t_KEY(t):
+    r'[Kk][Ee][Yy]'
+    return t
+
 def t_SINAL(t):
-    r'\+|\-|\*|\/|\<|\>|\=|MOD'
+    r'\+|\-|\*|\/|\<|\>|\=|\%'
     return t
 
 def t_IF(t):
-    r'IF'
+    r'[Ii][Ff]'
     return t
 
 def t_ELSE(t):
-    r'ELSE'
+    r'[Ee][Ll][Ss][Ee]'
     return t
 
 def t_THEN(t):
-    r'THEN'
+    r'[Tt][Hh][Ee][Nn]'
     return t
 
 def t_NOT(t):
-    r'NOT'
+    r'[Nn][Oo][Tt]'
     return t
 
 def t_2DUP(t):
-    r'2DUP'
+    r'2[Dd][Uu][Pp]'
     return t
 
 def t_ROT(t):
-    r'ROT'
+    r'[Rr][Oo][Tt]'
     return t
 
 def t_SPACES(t):
-    r'SPACES'
+    r'[Ss][Pp][Aa][Cc][Ee][Ss]'
     return t
 
 def t_SPACE(t):
-    r'SPACE'
+    r'[Ss][Pp][Aa][Cc][Ee]'
     return t
 
 def t_ARGUMENTOS(t):
@@ -74,47 +79,49 @@ def t_ARGUMENTOS(t):
     return t
 
 def t_CR(t):
-    r'CR'
+    r'[Cc][Rr]'
     return t
 
 def t_DROP(t):
-    r'DROP'
+    r'[Dd][Rr][Oo][Pp]'
     return t
 
 def t_OVER(t):
-    r'OVER'
+    r'[Oo][Vv][Ee][Rr]'
     return t
 
 def t_SWAP(t):  
-    r'SWAP'
+    r'[Ss][Ww][Aa][Pp]'
     return t
 
 def t_DUP(t):
-    r'DUP'
+    r'[Dd][Uu][Pp]'
     return t
 
 def t_eof(t):
     return None 
 
 def t_EMIT(t):
-    r'emit' 
+    r'[Ee][Mm][Ii][Tt]' 
     return t
 
 def t_CHAR(t):
-    r'char'
+    r'[Cc][Hh][Aa][Rr]'
     return t
 
 def t_DEFVARIABLE(t):
-    r'VARIABLE'
+    r'[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]'
     return t
+
+def t_ID(t):
+    r'[a-zA-Z][a-zA-Z0-9]*'
+    return t
+
 
 def t_NUM(t):
     r'\d+'
     return t
 
-def t_ID(t):
-    r'[a-zA-Z]+'
-    return t
 
 
 def t_STRING(t):
