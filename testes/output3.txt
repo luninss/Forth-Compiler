@@ -1,0 +1,10 @@
+pushn 0
+start
+writeln
+pushs "Yummy bean curd!"
+writes
+writeln
+pushs "Miniature vegetables."
+writes
+writeln
+stop

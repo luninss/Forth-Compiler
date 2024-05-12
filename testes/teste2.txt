@@ -1,0 +1,4 @@
+CHAR W .
+CHAR % DUP . EMIT
+CHAR A DUP .
+32 + EMIT

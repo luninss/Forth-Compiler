@@ -1,0 +1,25 @@
+pushn 0
+start
+pushi 2
+pushi 11
+pushi 3
+pushsp
+load-1
+pushsp
+load-1
+SUP
+jz continue0
+swap
+continue0:
+pushsp
+load-1
+pushsp
+load-1
+SUP
+jz continue0
+swap
+continue0:
+writei
+pushs " "
+writes
+stop

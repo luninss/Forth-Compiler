@@ -320,7 +320,7 @@ def p_OpStack6(p):
 
 def p_OpStack7(p):
     """
-    OPSTACK : NOT
+    OPSTACK : NOT   
     """
     p[0] = 'not\n'
     return p
@@ -384,26 +384,38 @@ parser = yacc.yacc()
 parser.exito = True
 parser.tab_id = {}
 parser.tab_func = {}
-parser.spaces_called= False
+parser.spaces_called = False
 parser.next_addr = 0
 parser.tab_ifs = {}
 parser.next_if = 0
+modointerativo = True
 
-fonte = ""
-for linha in sys.stdin:
-    fonte += linha
-
-codigo = parser.parse(fonte)
-
-
-if parser.exito:
-    print("\nParsing terminou com sucesso")
-    print("codigo gerado:\n")
-    print(codigo)  
+def parse_input(fonte):
+    return parser.parse(fonte)
 
 def debug_lexer(fonte):
     lex.input(fonte)
-    # while tok := lex.token():
-    #    print(tok)
+    while tok := lex.token():
+       print(tok)
 
-debug_lexer(fonte)
+if len(sys.argv) > 1:  # Check if any command-line arguments are passed
+    filename = sys.argv[1]
+    with open(filename, 'r') as file:
+        fonte = file.read()
+    modointerativo = False
+    codigo = parse_input(fonte)
+else:
+    fonte = ""
+    for linha in sys.stdin:
+        fonte += linha
+    codigo = parse_input(fonte)
+
+if parser.exito:
+    
+    if modointerativo:
+        print("\nParsing terminou com sucesso")
+        print("codigo gerado:")
+        print(codigo)
+    else:
+        with open('output.txt', 'w') as f:
+            f.write(codigo)

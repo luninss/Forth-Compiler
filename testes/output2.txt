@@ -1,0 +1,24 @@
+pushn 0
+start
+pushs "W"
+chrcode
+writei
+pushs " "
+writes
+pushs "%"
+chrcode
+dup 1
+writei
+pushs " "
+writes
+writechr
+pushs "A"
+chrcode
+dup 1
+writei
+pushs " "
+writes
+pushi 32
+ADD
+writechr
+stop

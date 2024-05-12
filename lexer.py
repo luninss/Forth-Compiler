@@ -121,9 +121,8 @@ def t_DEF_VARIABLE(t):
     return t
 
 def t_ID(t):
-    r'[a-zA-Z][a-zA-Z0-9]*'
+    r'[a-zA-Z][a-zA-Z0-9\-]*'
     return t
-
 
 def t_NUM(t):
     r'\d+'
@@ -131,7 +130,6 @@ def t_NUM(t):
 
 def t_STRINGPONTO(t):
     r'\."\s*([^"]+)"'
-    # t.value = t.value[2:-1]
     return t
 
 def t_error(t):
@@ -139,11 +137,5 @@ def t_error(t):
     t.lexer.skip(1)
 
 t_ignore = ' \n\t'  
-
-# Define precedence for math operators
-precedence = (
-    ('left', '+', '-'),
-    ('left', '*', '/'),
-)
 
 lexer = lex.lex()

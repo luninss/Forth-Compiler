@@ -1,0 +1,11 @@
+pushn 0
+start
+pushi 10
+pushi 20
+ADD
+pushi 2
+DIV
+writei
+pushs " "
+writes
+stop
