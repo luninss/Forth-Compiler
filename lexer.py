@@ -1,15 +1,12 @@
 import ply.lex as lex
 
-literals = ['(', ')', '=', '.', ';', ':', "\"", '!', '?', '@']
+literals = ['(', ')', '=', '.', ';', ':', "\"", '!', '?', '@', '+', '-', '*', '/', '<', '>', '%', '=']
 tokens = (
-    'SINAL',
     'NUM',
     'ID',
-    #'PRINT',
     'EMIT',
-    'STRING',
     'CHAR',
-    'DEFVARIABLE',
+    'DEF_VARIABLE',
     'DUP',
     'SWAP',
     'OVER',
@@ -21,25 +18,38 @@ tokens = (
     'ROT',
     '2DUP',
     'NOT',
-    'STRINGPONTO',
-    # 'LASTRESORT',
     'IF',
     'ELSE',
     'THEN',
     'KEY',
-    # 'DO',
+    'STRINGPONTO',
+    'VARIABLE',
+    'GIVE_VALUE_VARIABLE',
+    'PRINT_VARIABLE',
 )
 
-# def t_DO(t):
-#     r'DO'
-#     return t
+def t_CHAR(t):
+    r'[Cc][Hh][Aa][Rr]\s\S+'
+    t.value = t.value.split()[1][0]
+    return t
+
+def t_VARIABLE(t):
+    r'[a-zA-Z][a-zA-Z0-9]*\s@'
+    t.value = t.value[:-1]
+    return t
+
+def t_PRINT_VARIABLE(t):
+    r'[a-zA-Z][a-zA-Z0-9]*\s\?'
+    t.value = t.value[:-1]
+    return t
+
+def t_GIVE_VALUE_VARIABLE(t):
+    r'\d+\s[a-zA-Z][a-zA-Z0-9]*\s!'
+    t.value = t.value[:-1]
+    return t
 
 def t_KEY(t):
     r'[Kk][Ee][Yy]'
-    return t
-
-def t_SINAL(t):
-    r'\+|\-|\*|\/|\<|\>|\=|\%'
     return t
 
 def t_IF(t):
@@ -105,12 +115,9 @@ def t_EMIT(t):
     r'[Ee][Mm][Ii][Tt]' 
     return t
 
-def t_CHAR(t):
-    r'[Cc][Hh][Aa][Rr]'
-    return t
-
-def t_DEFVARIABLE(t):
-    r'[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]'
+def t_DEF_VARIABLE(t):
+    r'[Vv][Aa][Rr][Ii][Aa][Bb][Ll][Ee]\s[a-zA-Z][a-zA-Z0-9]*'
+    t.value = t.value[9:]
     return t
 
 def t_ID(t):
@@ -122,20 +129,10 @@ def t_NUM(t):
     r'\d+'
     return t
 
-
-
-def t_STRING(t):
-    r'"([^"]*)"'
-    return t
-
-
 def t_STRINGPONTO(t):
     r'\."\s*([^"]+)"'
+    # t.value = t.value[2:-1]
     return t
-
-# def t_LASTRESORT(t): 
-#     r'.'
-#     return t
 
 def t_error(t):
     print('Illegal character: ', t.value[0])
